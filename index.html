@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Records Process</title>
+    <link rel="stylesheet" href="process.css">
+</head>
+<body>
+    <div class="top-container-container">
+        <div class="top-container">
+            <h1>Daily Records Process</h1>
+            <h2>CS50 SQL Final Project</h2>
+
+            <h3>Project Goals</h3>
+            <ul>
+                <li>Create a project that I will actually use regularly</li>
+                <li>Use a new DBMS other than Sqlite to try something new</li>
+                <li>Create a database to keep track of my "daily records" to replace my Notes app folder</li>
+                <li>Keep track of work hours, school hours, jobs, clients, things I'm learning, etc.</li>
+                <li>Create a simple interface that will be easy for me to use</li>
+                <li>Ability to check totals and summaries</li>
+                <li>Ability to export data to CSV</li>
+                <li>Ability to generate invoices automatically (or info for invoices)</li>
+            </ul>
+
+            <h3>Project Process</h3>
+            <p class="process-description">
+                I will be keeping track of my process as I create the project and constantly updating the information below. I started 
+                making these process.html files with BookcaseDatabase.com, and I've found it incredibly useful for reinforcing concepts 
+                I'm learning and giving me a reference for future projects. I'm hoping to do the same with this project.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="full-process">
+        <div class="process-part">
+            <h3>Initial Brainstorming, Choosing a Database Management System</h3>
+            <p>
+                I wanted to create a project that I would actually use on a daily basis. I have a folder in my Notes app on my
+                phone where I keep track of my work hours, school hours, and other things I'm learning. My current process is 
+                every few days I open Google Maps and look at my timeline to see where I was and what I was doing. Then I open 
+                my Notes app and create a new note with the date and time and write down what I was doing. Then when it comes time 
+                to send invoices I have to go through all of my notes one by one and add up the hours.
+            </p>
+            <p>
+                I started taking programming courses on August 24, 2023. Since then, I've been keeping track of the hours I've put 
+                in each day and the things I've been learning. I guess I just have a thing for keeping records. I decided to make a 
+                project that would replace my Notes app folder and make it easier for me to keep track of my hours and what I'm
+                learning. I also wanted to make it easy to export the data to CSV and generate invoices automatically. I'd like to 
+                be able to see totals and summaries of my hours spent at specific jobs or working on specific projects.  
+            </p>
+            <p>
+                I opted to give MySQL a try. But in the process I learned a bit about the differences between MySQL, PostgreSQL, 
+                and SQLite. I realized that SQLite would probably be the best option for a simple single-user project like this. But I 
+                also realized that SQLite was NOT the RDBMS to use for my last big project, Bookcase Database. Luckily, I currently have 
+                three total users -- me, my aunt, and my friend. So I should be okay for now. However, I'm thinking that I will migrate 
+                Bookcase Database from SQLite to MySQL or PostgreSQL in the future. So I decided to try using MySQL for this project to 
+                get comfortable with it. PostgreSQL seemed like overkill for this and even Bookcase Database. 
+            </p>
+            <p>
+                Took a minute because of issues with the PATH but I got MySQL installed and a server running. Using MySQL seems like it 
+                will be very straightforward. Now that I have that installed and ready to roll, I'm going to start planning the database 
+                itself.
+            </p>
+            <div class="summary">
+                <h4>References and Resources</h4>
+                <ul>
+                    <li><a href="https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems">SQLite vs MySQL vs PostgreSQL</a></li>
+                    <li><a href="https://dev.mysql.com/doc/mysql-getting-started/en/">MySQL.com Getting Started</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="process-part">
+            <h3>Database Design</h3>
+            <p>
+                I decided to start visually. I found a website <a href="https://online.visual-paradigm.com/">Visual-Paradigm</a> where I could 
+                create a free account and create a visual ERD. I started with the basics. I created a table for Days, Clients, Jobs, Work Hours,
+                Learning Hours, Expenses and Invoices. 
+            </p>
+            <h5>Here is what my ERD diagram...(entity relationship diagram, diagram?) looks like as of now</h5>
+        </div>
+        
+        <img src="images/erd-01.png" alt="ERD Diagram" style="max-width: 800px">
+
+        <div class="process-part">
+            <p>
+                I thought through all the relationships between tables to make sure it all made sense. I decided to add a table for Courses and 
+                a table for Projects. 
+            </p>
+            <h5>Here is what my ERD looks like now</h5>
+        </div>
+
+        <img src="images/erd-02.png" alt="ERD Diagram" style="max-width: 800px">
+
+        <div class="process-part">
+            <h5>....And another update to the ERD.</h5>
+        </div>
+
+        <img src="images/daily-records-erd-labels.png" alt="ERD Diagram" style="max-width: 800px">
+
+        <div class="process-part">
+            <p>
+                As you can see, I've created the relationships between the tables using association tables (aka junction tables, join tables, 
+                etc.). 
+            </p>
+            <div class="summary">
+                <h4>References and Resources</h4>
+                <ul>
+                    <li><a href="https://online.visual-paradigm.com/">Visual-Paradigm</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=QpdhBUYk7Kk">ERD Tutorial</a></li>
+                    <li><a href="https://chat.openai.com">I made "my own" GPT who is a professional database designer. Got help from them</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="process-part">
+            <h3>Creating the database</h3>
+            <p>Time to translate the ERD to a schema.sql file.</p>
+            <p>
+                I started by reading through the startup guides on MySQL.com. Most of the syntax and commands are very similar or identical to 
+                those used in SQLite, so that wasn't hard to get familiar with. I started by translating the ERD to a schema.sql file. 
+                Once I had a first draft done, I went and asked my GPT friend to look it over for me. They gave me some feedback suggesting that 
+                I look into foreign key constraints and normalization. I was somewhat familiar with both of these terms, and I know we went over 
+                them in the course, but I had to do some research to refresh my memory. 
+            </p>
+            <h4>Foreign Key Constraints</h4>
+            <p>
+                In summary the purpose of foreign key constraints is to ensure that the data in the database is consistent. It ensures that 
+                the data in one table matches the data in another table. For example, if I have a table of clients and a table of jobs, I want
+                to make sure that the client_id in the jobs table matches the client_id in the clients table. If I delete a client, I want to 
+                make sure that all of the jobs associated with that client are also deleted.
+            </p>
+            <h4>Normalization</h4>
+            <p>
+                Normalization is a term I was already familiar with in the context of audio engineering. It's the process of making sure that
+                the volume of a track is consistent throughout the track, or in line with another target or standard. In the context of
+                databases, normalization is the process of organizing the data in a database to reduce redundancy and dependency.
+            </p>
+            <ul>
+                <li>
+                    First Normal Form (1NF): Each cell in a table must contain only one piece of information, and there should be no duplicate 
+                    rows.
+                </li>
+                <li>
+                    Second Normal Form (2NF): Meet all the requirements of 1NF, and every non-key column must be fully dependent on the table's 
+                    primary key (not just a part of it).
+                </li>
+                <li>
+                    Third Normal Form (3NF): Meet all the requirements of 2NF, and there should be no columns that are indirectly dependent on 
+                    the primary key (i.e., no transitive dependencies).
+                </li>
+            </ul>
+            <p> 
+                I also downloaded the MySQL Workbench app and imported my schema and created an ERD with that tool. I found it very useful to 
+                be able to include some more information about the values in each table in the diagram. Here is that diagram:
+            </p>
+        </div>
+
+        <img src="images/daily-records-erd-workbench.png" alt="ERD Diagram" style="max-width: 600px">
+
+        <div class="process-part">
+            <div class="summary">
+                <h4>References and Resources</h4>
+                <ul>
+                    <li><a href="https://www.mysql.com/products/workbench/">Started using MySQL Workbench</a></li>
+                    <li><a href="https://dev.mysql.com/doc/mysql-getting-started/en/">MySQL.com Getting Started</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=QpdhBUYk7Kk">ERD Tutorial</a></li>
+                    <li><a href="https://www.essentialsql.com/get-ready-to-learn-sql-8-database-first-normal-form-explained-in-simple-english/">First Normal Form</a></li>
+                    <li><a href="https://www.essentialsql.com/get-ready-to-learn-sql-10-database-second-normal-form-explained-in-simple-english/">Second Normal Form</a></li>
+                    <li><a href="https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/">Third Normal Form</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="process-part">
+            <h3>Implementing the Database and Final Thoughts</h3>
+            <p>
+                I ran into trouble because of the order in which I was adding tables to the database. In retrospect, it seems 
+                pretty obvious that I need to add a table before I can reference it in another table. But I was trying to add 
+                the tables in the order that they appeared in the ERD. I was getting errors like "ERROR 1215 (HY000): Cannot add
+                foreign key constraint". But what's a good project without a little debugging. Got that sorted out then spent some 
+                more time adjusting the schema and ERD. I kept getting the one-to-one, one-to-many, and many-to-many relationships 
+                mixed up in my head. But something finally started clicking for me by the end of this. 
+            </p>
+            <p>
+                I decided to do some googling about stored procedures and I actually added a few to the database. I created a stored 
+                procedure to add all the relevant information for a work time block and a learning time block. I also went through something
+                iterations with my query to generate an invoice. I'm still not sure if I'm doing it the best way, but I'm happy with the 
+                results. I'm able to generate an invoice for a client that includes all the relevant information.
+            </p>
+            <p>
+                As with the CS50 Python final project that I recently completed, I decided to stop myself from taking the project 
+                further before submitting. However, I've already begun working on implementing my Python chatbot into my Bookcase 
+                Database website, and I intend to actually use this project, Daily Records. So in my spare time I will be working 
+                on building a GUI to make it easier to input data. Perhaps I'll even make it a web app. But I'm eager to continue 
+                learning and not get bogged down by my perfectionism and desire to make everything perfect before I move on.
+            </p>
+            <p>
+                I just cleaned up the code and made a final pass on my ER diagrams and recorded the submission video for my project.
+            </p>
+            <p>
+                Here is a link to the video:  <a href="https://www.youtube.com/watch?v=bL6vYFwRMJg">Daily Records - CS50 SQL Final Project</a>
+            </p>
+            <p>
+                And here is a link to the GitHub repo: <a href="https://github.com/MyPetLobster/daily-records">Daily Records GitHub Repo</a>
+            </p>
+            <div class="summary">
+                <h4>References and Resources</h4>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=X_umYKqKaF0">MySQL Workbench Tutorial Youtube Video</a></li>
+                    <li><a href="https://www.guru99.com/introduction-to-mysql-workbench.html">Guru99 Workbench Tutorial</a></li>
+                    <li><a href="https://stackoverflow.com/questions/26329775/error-code-1822-failed-to-add-the-foreign-key-constaint-missing-index-for-con">Stackoverflow thread about the error I encountered</a></li>
+                    <li><a href="https://online.visual-paradigm.com/">Visual Paradigm - Tool I used for colorful ERD</a></li>
+                </ul>
+        </div>
+    </div>
+</body>
+</html>

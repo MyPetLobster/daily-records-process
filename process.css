@@ -1,0 +1,96 @@
+/* General Styles */
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f0f0f0;
+  color: #10200c;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
+  text-indent: 30px;
+}
+
+p,
+li {
+  font-size: 13px;
+}
+.disclosure {
+  font-size: 12px;
+  font-style: italic;
+  color: #585454;
+}
+
+img {
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+ul {
+  padding-left: 20px;
+}
+code {
+  color: #585454;
+  font-size: 12px;
+  font-style: italic;
+}
+.top-container-container,
+.full-process,
+.process-part,
+.goals,
+.tech-used {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Top Container */
+.top-container {
+  max-width: 550px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1em;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+/* Process Parts */
+.process-part {
+  max-width: 450px;
+  background-color: #e6e6e6;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .top-container,
+  .process-part {
+    margin: 0.5em;
+    padding: 0.5em;
+  }
+}
+
+/* Goals and Tech Used Sections */
+.goals,
+.tech-used {
+  background-color: #e1f5d9;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.bold {
+  font-weight: bold;
+}
